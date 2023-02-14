@@ -1,28 +1,58 @@
-const playerGuess = document.querySelector(".guessed-letters");
+const playerGuessLetters = document.querySelector(".guessed-letters");
 const guessTextButton = document.querySelector(".guess");
-const guessLetter = document.querySelector(".letter");
+const guessTheLetter = document.querySelector(".letter");
 const wordProgress = document.querySelector(".word-in-progress");
 const remainingGuess = document.querySelector(".remaining");
 const remainingGuessSpan = document.querySelector(".remaining span");
-const appearMessage = document.querySelector(".message");
+const message = document.querySelector(".message");
 const hiddenButton = document.querySelector(".play-again");
 
 const word = "magnolia";
+const guessLetter = [];
 
 const beginTheGame = function(word) {
-    const beginTheGame = [];
+    const beginTheGameLetters = [];
     for (const letter of word) {
         console.log(letter);
-        beginTheGame.push("●");
+        beginTheGameLetters.push("●");
     }
-    wordProgress.innerText = beginTheGame.join("");
+    wordProgress.innerText = beginTheGameLetters.join("");
 };
 
 beginTheGame(word);
 
 guessTextButton.addEventListener("click", function(e) {
     e.preventDefault();
-    const guess = postInput.value;
-    console.log(guess);
-    postInput.value = "";
+    message.innerText = "";
+
+    const guess = guessTheLetter.value;
+    const niceGuess = validateInput(guess);
+
+    if (niceGuess) {
+        makeGuess(guess);
+    }
+    guessTheLetter.value = "";
 });
+
+const validateInput = function(input) {
+    const acceptedLetter = /[a-zA-Z]/;
+    if (input.length === 0) {
+        message.innerText = " Please enter a letter.";
+    } else if (input.length > 1) {
+        message.innerText = "Please enter a single letter.";
+    } else if (!input.match(acceptedLetter)) {
+        message.innerText = "Please enter a letter from A to Z.";
+    } else {
+        return input;
+    }
+};
+
+const makeGuess = function(guess) {
+    guess = guess.toUpperCase();
+    if (guessLetter.includes(guess)) {
+        message.innerText = " You already guessed that letter, silly. Try again.";
+    } else {
+        guessLetter.push(guess);
+        console.log(guessLetter);
+    }
+};
