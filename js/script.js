@@ -9,7 +9,7 @@ const message = document.querySelector(".message");
 const hiddenButton = document.querySelector(".play-again");
 
 //starting word is magnolia for testing it out.
-const word = "magnolia";
+let word = "magnolia";
 const guessLetter = []; //this array will contain all the letters the player guesses
 let remainingGuesses = 8;
 
