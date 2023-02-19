@@ -10,7 +10,7 @@ const hiddenButton = document.querySelector(".play-again");
 
 //starting word is magnolia for testing it out.
 let word = "magnolia";
-const guessLetter = []; //this array will contain all the letters the player guesses
+let guessLetter = []; //this array will contain all the letters the player guesses
 let remainingGuesses = 8;
 
 const getWord = async function () {
@@ -123,5 +123,29 @@ const checkIfWin = function () {
   if (word.toUpperCase() === wordProgress.innerText) {
     message.classList.add("win");
     message.innerHTML = `<p class="highlight"> You guessed the correct word! Congrats!</p>`;
+
+    startOver();
   }
 };
+const startOver = function () {
+  guessTextButton.classList.add("hide");
+  remainingGuess.classList.add("hide");
+  playerGuessLetters.classList.add("hide");
+  hiddenButton.classList.remove("hide");
+};
+hiddenButton.addEventListener("click", function () {
+  // reset all original values - grab new word
+  message.classList.remove("win");
+  guessLetter = [];
+  remainingGuesses = 8;
+  remainingGuessSpan.innerText = `${remainingGuesses} guesses`;
+  playerGuessLetters.innerHTML = "";
+  message.innerText = "";
+  // Grab a new word
+  getWord();
+  // show the right UI elements
+  guessTextButton.classList.remove("hide");
+  hiddenButton.classList.add("hide");
+  remainingGuess.classList.remove("hide");
+  playerGuessLetters.classList.remove("hide");
+});
