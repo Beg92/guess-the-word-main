@@ -10,7 +10,7 @@ const hiddenButton = document.querySelector(".play-again");
 
 //starting word is magnolia for testing it out.
 let word = "magnolia";
-const guessLetter = []; //this array will contain all the letters the player guesses
+let guessLetter = []; //this array will contain all the letters the player guesses
 let remainingGuesses = 8;
 
 const getWord = async function () {
@@ -113,6 +113,7 @@ const remainingCountGuesses = function (guess) {
 
   if (remainingGuesses === 0) {
     message.innerHTML = `Sorry. Game is Over! The word was <span class="highlight">${word}</span>`;
+    startOver();
   } else if (remainingGuesses === 1) {
     remainingGuessSpan.innerText = `${remainingGuesses} guess`;
   } else {
